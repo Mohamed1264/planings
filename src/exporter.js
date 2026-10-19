@@ -13,7 +13,7 @@ export function exportToExcel(consolidatedData, weekDates = {}) {
   // En-têtes institutionnels
   rows.push(["UNIVERSITÉ MOHAMMED VI DES SCIENCES ET DE LA SANTÉ (UM6SS) - DAKHLA"]);
   rows.push(["Faculté de Médecine & École Supérieure d'Ingénieurs"]);
-  rows.push([`Emploi du temps – Salle : ${room}`]);
+  rows.push(["Emploi du temps"]);
   rows.push([`Semaine du ${startWeek} au ${endWeek}`]);
   rows.push([]); // Ligne vide
 
@@ -34,11 +34,11 @@ export function exportToExcel(consolidatedData, weekDates = {}) {
         row.push("—");
       } else {
         const textParts = cards.map(c => {
-          let str = `${c.title}`;
-          if (c.teacher) str += ` | ${c.teacher}`;
-          if (c.filieres && c.filieres.length > 0) str += ` [${c.filieres.join('/')}]`;
-          if (c.specialNote) str += ` (${c.specialNote})`;
-          return str;
+          const details = [];
+          if (c.teacher) details.push(c.teacher);
+          if (c.filieres && c.filieres.length > 0) details.push(`[${c.filieres.join('/')}]`);
+          if (c.specialNote) details.push(`(${c.specialNote})`);
+          return details.join(" | ");
         });
 
         if (cards.length > 1) {
@@ -60,8 +60,7 @@ export function exportToExcel(consolidatedData, weekDates = {}) {
   ws['!cols'] = colWidths;
 
   const wb = XLSX.utils.book_new();
-  const safeSheetName = room.replace(/[:\\/?*\[\]]/g, "_").substring(0, 31);
-  XLSX.utils.book_append_sheet(wb, ws, safeSheetName || "Emploi du temps");
+  XLSX.utils.book_append_sheet(wb, ws, "Emploi du temps");
 
   const cleanFileName = `Emploi_du_temps_${room.replace(/\s+/g, '_')}_${startWeek.replace(/\//g, '-')}.xlsx`;
   XLSX.writeFile(wb, cleanFileName);

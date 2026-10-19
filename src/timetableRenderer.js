@@ -45,8 +45,8 @@ export function renderTimetableSection(consolidatedData, weekDates = {}) {
       <section class="timetable-section empty-state">
         <div class="empty-notice">
           <div class="empty-icon">📍</div>
-          <h3>Aucune séance trouvée pour : <strong>${escapeHtml(room)}</strong></h3>
-          <p>Cette salle n'apparaît dans aucun créneau des fichiers plannings importés pour cette semaine.</p>
+          <h3>Aucune séance trouvée</h3>
+          <p>Aucun créneau n'apparaît dans les fichiers plannings importés pour cette semaine.</p>
         </div>
       </section>
     `;
@@ -166,7 +166,7 @@ export function renderTimetableSection(consolidatedData, weekDates = {}) {
           </div>
           <!-- Sous-bandeau blanc officiel -->
           <div class="um6ss-doc-white-subbar">
-            Année Universitaire 2026/2027 • Emploi du temps – Salle : <strong class="red-room-title">${escapeHtml(room)}</strong>
+            Année Universitaire 2026/2027 • Emploi du temps
             <span class="print-hidden" style="margin-left: 12px;">(${totalCount} séance${totalCount > 1 ? 's' : ''})</span>
           </div>
         </div>
@@ -215,10 +215,8 @@ function renderCellContent(cards, slot, targetRoom) {
     return `
       <div class="um6ss-cell-inner-box" style="background-color: ${palette.bg};">
         <div class="cell-line-time">${escapeHtml(formatSlotDisplay(c.slot || slot))}</div>
-        <div class="cell-line-title">${escapeHtml(c.title)}</div>
         ${c.teacher ? `<div class="cell-line-teacher">👨‍🏫 ${escapeHtml(c.teacher)}</div>` : ""}
         ${c.specialNote ? `<div class="cell-line-note"><em>${escapeHtml(c.specialNote)}</em></div>` : ""}
-        <div class="cell-line-room">${escapeHtml(c.room || targetRoom)}</div>
         ${c.filieres && c.filieres.length > 0 ? `<div class="cell-line-filiere">${c.filieres.map(f => `<span class="fil-tag">${escapeHtml(f)}</span>`).join('')}</div>` : ""}
       </div>
     `;
