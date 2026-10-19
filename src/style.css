@@ -794,6 +794,55 @@ body {
     border: none !important;
     padding: 0 !important;
     page-break-after: always;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .um6ss-table-outer-frame {
+    overflow: visible;
+  }
+
+  .um6ss-exact-grid {
+    min-width: 0;
+  }
+
+  .um6ss-th-day,
+  .um6ss-th-date {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 10px;
+  }
+
+  .um6ss-td-cell {
+    height: 78px;
+    min-height: 78px;
+  }
+
+  .um6ss-cell-stack {
+    height: 78px;
+    overflow: visible;
+  }
+
+  .um6ss-cell-inner-box {
+    min-height: 78px;
+    flex-basis: 78px;
+    padding: 4px 3px;
+    gap: 2px;
+  }
+
+  .um6ss-tr-red-divider,
+  .um6ss-td-red-divider {
+    height: 8px;
+  }
+
+  .cell-line-time {
+    font-size: 9px;
+  }
+
+  .cell-line-teacher,
+  .cell-line-note,
+  .fil-tag {
+    font-size: 8px;
   }
 
   .um6ss-doc-red-banner,
