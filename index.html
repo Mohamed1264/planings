@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Plateforme intelligente de détection et consolidation des emplois du temps de salles et d'amphis – UM6SS Dakhla." />
+    <title>UM6SS Dakhla – Emplois du Temps Dynamiques Salles & Amphis</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- En-tête Navigation -->
+    <header class="app-navbar print-hidden">
+      <div class="nav-container">
+        <div class="nav-brand">
+          <div class="univ-logo-badge">UM6SS</div>
+          <div class="brand-text-block">
+            <h1>Emplois du Temps – Salles & Amphis</h1>
+            <p>Faculté de Médecine & École Supérieure d'Ingénieurs • Campus Dakhla</p>
+          </div>
+        </div>
+
+        <div class="nav-actions">
+          <button id="themeToggleBtn" class="btn-theme-toggle" title="Basculer Mode Clair / Sombre">
+            <span id="themeIcon">🌓</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Corps Principal -->
+    <main class="app-main">
+      <!-- 1. Zone d'importation dynamique de fichiers PDF -->
+      <section class="upload-panel-card print-hidden">
+        <div class="upload-panel-header">
+          <div>
+            <h2>📁 1. Importer les plannings PDF (Illimités)</h2>
+            <p>Importez autant de fichiers PDF que nécessaire (plusieurs semaines, filières, niveaux ou promotions). Le système détecte tout automatiquement.</p>
+          </div>
+          <div class="upload-header-actions">
+            <button id="btnLoadSamples" class="btn-demo-load" title="Tester immédiatement avec un lot d'exemples réels UM6SS (FM1, ING GI, FSS)">
+              <span>⚡ Charger des exemples UM6SS</span>
+            </button>
+            <button id="btnClearAll" class="btn-secondary-action" style="display: none;">
+              <span>🗑️ Tout effacer</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="dropzone" class="dropzone-container">
+          <span class="dropzone-icon">📥</span>
+          <div class="dropzone-title">Glissez vos fichiers PDF ici, ou cliquez pour sélectionner</div>
+          <div class="dropzone-desc">Vous pouvez sélectionner des dizaines de fichiers PDF en même temps • Analyse locale rapide</div>
+          <input type="file" id="pdfFileInput" class="hidden-file-input" accept="application/pdf" multiple />
+        </div>
+
+        <!-- Barre de progression pour lots volumineux (BZAF) -->
+        <div id="batchProgressContainer" style="display: none; margin-top: 16px;">
+          <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; margin-bottom: 6px;">
+            <span id="batchProgressLabel" style="color: var(--accent);">Traitement des fichiers en cours...</span>
+            <span id="batchProgressPercent">0%</span>
+          </div>
+          <div style="height: 8px; background: var(--border-color); border-radius: var(--radius-full); overflow: hidden;">
+            <div id="batchProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, #2563eb, #059669); transition: width 0.2s ease;"></div>
+          </div>
+        </div>
+
+        <!-- Métriques dynamiques du lot de fichiers -->
+        <div id="batchMetricsBar" style="display: none; margin-top: 16px; padding: 12px 16px; background: var(--bg-subtle); border-radius: var(--radius-md); border: 1px solid var(--border-color); gap: 20px; flex-wrap: wrap;">
+          <div class="metric-item"><strong>📄 Fichiers :</strong> <span id="metricFilesCount">0</span></div>
+          <div class="metric-item"><strong>📅 Semaines :</strong> <span id="metricWeeksCount">0</span></div>
+          <div class="metric-item"><strong>🏛️ Salles trouvées :</strong> <span id="metricRoomsCount">0</span></div>
+          <div class="metric-item"><strong>🎓 Séances extraites :</strong> <span id="metricSessionsCount">0</span></div>
+        </div>
+
+        <!-- Liste des fichiers importés (plateau déroulant) -->
+        <div id="uploadedFilesTray" class="uploaded-files-tray" style="display: none; max-height: 220px; overflow-y: auto;"></div>
+      </section>
+
+      <!-- 2. Proposition & Filtre des salles/amphis et semaines détectés -->
+      <section id="roomsProposalPanel" class="rooms-proposal-panel print-hidden" style="display: none;">
+        <div class="rooms-panel-header">
+          <div>
+            <h2>🏛️ 2. Salles & Amphis Détectés Dynamiquement</h2>
+            <p>Toutes les salles trouvées dans vos fichiers sont listées ci-dessous avec le nombre de cours :</p>
+          </div>
+
+          <div class="rooms-panel-controls">
+            <!-- Sélecteur de semaine détectée -->
+            <div id="weekFilterWrapper" style="display: none; align-items: center; gap: 6px;">
+              <label for="weekSelectFilter" style="font-size: 13px; font-weight: 600; color: var(--text-muted);">Semaine :</label>
+              <select id="weekSelectFilter" class="room-search-input" style="min-width: 220px; cursor: pointer;">
+                <option value="ALL">Toutes les semaines</option>
+              </select>
+            </div>
+
+            <input type="text" id="roomSearchInput" class="room-search-input" placeholder="🔍 Filtrer une salle (ex: Amphi 4, CD114)..." />
+            
+            <label class="multi-toggle-label">
+              <input type="checkbox" id="multiSelectToggle" />
+              <span>Sélection multiple</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Grille de badges cliquables pour chaque salle détectée -->
+        <div id="roomsChipsGrid" class="rooms-chips-grid"></div>
+      </section>
+
+      <!-- 3. Barre d'actions globales (Export / Impression) -->
+      <section id="globalActionsBar" class="global-actions-bar print-hidden" style="display: none;">
+        <div class="status-summary-text">
+          Salle active : <strong id="activeRoomDisplay" class="status-highlight">—</strong>
+          <span id="activeSessionsCount" style="margin-left: 8px; color: var(--text-subtle); font-weight: normal;"></span>
+        </div>
+
+        <div class="export-buttons-group">
+          <button id="btnPrintGlobal" class="btn-primary-action" title="Imprimer ou enregistrer en PDF paysage (A4)">
+            <span>🖨️ Imprimer / PDF A4</span>
+          </button>
+          <button id="btnExcelGlobal" class="btn-secondary-action" title="Exporter au format Excel (.xlsx)">
+            <span>📊 Exporter Excel (.xlsx)</span>
+          </button>
+          <button id="btnHtmlGlobal" class="btn-secondary-action" title="Télécharger la page HTML autonome">
+            <span>💾 Télécharger HTML</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 4. Conteneur des emplois du temps générés -->
+      <div id="timetablesContainer" class="timetables-container">
+        <!-- Message initial d'invitation -->
+        <div class="timetable-section empty-state" id="initialWelcomePrompt">
+          <div style="text-align: center; padding: 40px 20px;">
+            <div style="font-size: 48px; margin-bottom: 12px;">📅</div>
+            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 8px;">En attente de vos plannings PDF</h3>
+            <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 14px;">
+              Glissez vos fichiers PDF de plannings ci-dessus. Le système détectera automatiquement <strong>les dates exactes</strong>, <strong>les créneaux</strong>, <strong>les filières</strong> et <strong>toutes les salles/amphis</strong> occupés.
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="app-footer print-hidden">
+      <p>UM6SS – Université Mohammed VI des Sciences et de la Santé • Campus Dakhla • Module Intelligent d'Emplois du Temps</p>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

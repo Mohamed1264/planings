@@ -1,0 +1,830 @@
+/* ==========================================================================
+   Design System – Emplois du Temps UM6SS Dakhla
+   RÉPLIQUE EXACTE DU DOCUMENT OFFICIEL UM6SS (Bordures noires & rouge vif)
+   ========================================================================== */
+
+:root {
+  --font-sans: 'Plus Jakarta Sans', Arial, Helvetica, sans-serif;
+  --font-display: 'Outfit', Arial, Helvetica, sans-serif;
+
+  /* Couleur Rouge Officielle UM6SS */
+  --um6ss-red: #a80000;
+  --um6ss-red-hover: #8f0000;
+  --um6ss-black-border: #000000;
+
+  --bg-page: #e2e8f0;
+  --bg-surface: #ffffff;
+  --bg-subtle: #f8fafc;
+  
+  --text-main: #000000;
+  --text-muted: #334155;
+  --text-subtle: #64748b;
+
+  --border-color: #94a3b8;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --bg-page: #0b0f19;
+    --bg-surface: #111827;
+    --bg-subtle: #1f2937;
+    --text-main: #ffffff;
+    --text-muted: #cbd5e1;
+    --text-subtle: #94a3b8;
+    --border-color: #374151;
+  }
+}
+
+:root.dark {
+  --bg-page: #0b0f19;
+  --bg-surface: #111827;
+  --bg-subtle: #1f2937;
+  --text-main: #ffffff;
+  --text-muted: #cbd5e1;
+  --text-subtle: #94a3b8;
+  --border-color: #374151;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   Header & Controls
+   ========================================================================== */
+
+.app-navbar {
+  background: #ffffff;
+  border-bottom: 3px solid var(--um6ss-red);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+:root.dark .app-navbar {
+  background: #111827;
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.univ-logo-badge {
+  width: 42px;
+  height: 42px;
+  background: var(--um6ss-red);
+  color: #ffffff;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.brand-text-block h1 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.brand-text-block p {
+  font-size: 11.5px;
+  color: var(--text-subtle);
+  font-weight: 500;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-theme-toggle {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   Main Content Layout
+   ========================================================================== */
+
+.app-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Upload Panel */
+.upload-panel-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+}
+
+:root.dark .upload-panel-card {
+  background: #111827;
+  border-color: #374151;
+}
+
+.upload-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.upload-panel-header h2 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.upload-panel-header p {
+  font-size: 12.5px;
+  color: var(--text-subtle);
+}
+
+.upload-header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-demo-load {
+  background: rgba(168, 0, 0, 0.08);
+  color: var(--um6ss-red);
+  border: 1.5px solid var(--um6ss-red);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-demo-load:hover {
+  background: var(--um6ss-red);
+  color: #ffffff;
+}
+
+.dropzone-container {
+  border: 2px dashed var(--um6ss-red);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  text-align: center;
+  background: rgba(168, 0, 0, 0.02);
+  cursor: pointer;
+}
+
+.dropzone-icon {
+  font-size: 28px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.dropzone-title {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.dropzone-desc {
+  font-size: 12px;
+  color: var(--text-subtle);
+}
+
+.hidden-file-input { display: none; }
+
+.uploaded-files-tray {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.file-item-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg-subtle);
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+}
+
+.file-pill-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.file-name-text {
+  font-weight: 600;
+}
+
+.file-meta-tag {
+  font-size: 11px;
+  padding: 1px 6px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 2px;
+  color: var(--text-subtle);
+  font-weight: 600;
+}
+
+.file-delete-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  color: #64748b;
+}
+
+.file-delete-btn:hover { color: #dc2626; }
+
+/* Room Selection Panel */
+.rooms-proposal-panel {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+:root.dark .rooms-proposal-panel {
+  background: #111827;
+  border-color: #374151;
+}
+
+.rooms-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.rooms-panel-header h2 {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.rooms-panel-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.room-search-input {
+  padding: 6px 10px;
+  font-size: 12px;
+  border: 1px solid #94a3b8;
+  border-radius: var(--radius-sm);
+  outline: none;
+}
+
+.room-search-input:focus { border-color: var(--um6ss-red); }
+
+.multi-toggle-label {
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.rooms-chips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.room-chip-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  background: #f1f5f9;
+  border: 1.5px solid #94a3b8;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+:root.dark .room-chip-btn {
+  background: #1f2937;
+  border-color: #4b5563;
+  color: #f9fafb;
+}
+
+.room-chip-btn:hover {
+  border-color: var(--um6ss-red);
+  background: rgba(168, 0, 0, 0.05);
+}
+
+.room-chip-btn.active {
+  background: var(--um6ss-red) !important;
+  color: #ffffff !important;
+  border-color: var(--um6ss-red) !important;
+  box-shadow: 0 2px 6px rgba(168, 0, 0, 0.3);
+}
+
+.room-count-badge {
+  font-size: 11px;
+  padding: 1px 6px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 9999px;
+}
+
+.room-chip-btn.active .room-count-badge {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+/* Global Actions Bar */
+.global-actions-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+}
+
+:root.dark .global-actions-bar {
+  background: #111827;
+  border-color: #374151;
+}
+
+.btn-primary-action {
+  background: var(--um6ss-red);
+  color: #ffffff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-primary-action:hover { background: var(--um6ss-red-hover); }
+
+.btn-secondary-action {
+  background: #f1f5f9;
+  color: #000000;
+  border: 1px solid #94a3b8;
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   OFFICIAL UM6SS TIMETABLE DOCUMENT SHEET (PIXEL-PERFECT REPLICA)
+   ========================================================================== */
+
+.timetables-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.um6ss-exact-paper-sheet {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #64748b;
+  padding: 24px 20px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+/* En-tête officiel */
+.um6ss-official-doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 12px;
+  gap: 16px;
+}
+
+.um6ss-doc-logos-block {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.um6ss-svg-emblem svg {
+  display: block;
+}
+
+.um6ss-logo-img {
+  display: block;
+  width: 250px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.um6ss-doc-text-block {
+  line-height: 1.25;
+}
+
+.doc-text-univ {
+  font-size: 11px;
+  font-weight: 800;
+  color: #000000;
+  letter-spacing: 0.2px;
+}
+
+.doc-text-abbr {
+  font-size: 10px;
+  font-weight: 800;
+  color: #00843d;
+}
+
+.doc-text-fac {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #333333;
+  margin-top: 2px;
+}
+
+.doc-text-loc {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #666666;
+}
+
+/* Groupe Bandeau Titre Rouge + Sous-bandeau Blanc */
+.um6ss-doc-banner-group {
+  flex: 1;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.um6ss-doc-red-banner {
+  background: #a80000 !important;
+  color: #ffffff !important;
+  border: 1.5px solid #000000;
+  border-bottom: none;
+  padding: 8px 16px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.um6ss-doc-white-subbar {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1.5px solid #000000;
+  padding: 6px 12px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.red-room-title {
+  color: #a80000;
+  font-size: 13px;
+}
+
+.um6ss-quick-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-action {
+  background: #f1f5f9;
+  border: 1px solid #94a3b8;
+  color: #000000;
+  padding: 6px 10px;
+  border-radius: 3px;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Grille Institutionnelle Officielle (Bordures Noires & Rouge Vif)
+   ========================================================================== */
+
+.um6ss-table-outer-frame {
+  overflow-x: auto;
+  border: 1.5px solid #000000;
+  background: #ffffff;
+}
+
+.um6ss-exact-grid {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 950px;
+  border: 1.5px solid #000000;
+  background: #ffffff;
+}
+
+.um6ss-exact-grid th, 
+.um6ss-exact-grid td {
+  border: 1px solid #000000 !important;
+}
+
+/* Coin supérieur gauche vide */
+.um6ss-corner-cell {
+  background: #ffffff !important;
+  width: 88px;
+  min-width: 88px;
+}
+
+/* En-tête des jours (Rouge officiel avec texte blanc) */
+.um6ss-th-day {
+  background: #a80000 !important;
+  color: #ffffff !important;
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 800;
+  text-align: center;
+  padding: 6px 4px;
+  width: 14.5%;
+}
+
+/* En-tête des dates des jours (Ligne sous le nom du jour, rouge officiel) */
+.um6ss-th-date {
+  background: #a80000 !important;
+  color: #ffffff !important;
+  font-size: 11.5px;
+  font-weight: 800;
+  text-align: center;
+  padding: 4px 4px;
+}
+
+/* Colonne Date Verticale (Du JJ/MM au JJ/MM) */
+.um6ss-td-vertical-period {
+  width: 38px;
+  min-width: 38px;
+  background: #ffffff !important;
+  text-align: center;
+  vertical-align: middle;
+  padding: 10px 0;
+}
+
+.um6ss-vertical-period-txt {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-weight: 800;
+  font-size: 11.5px;
+  color: #000000;
+  letter-spacing: 0.6px;
+  white-space: nowrap;
+  margin: 0 auto;
+}
+
+/* Colonne Période Rouge (MATIN / APRES MIDI) */
+.um6ss-td-period-red {
+  width: 50px;
+  min-width: 50px;
+  background: #a80000 !important;
+  color: #ffffff !important;
+  text-align: center;
+  vertical-align: middle;
+  padding: 6px 2px;
+}
+
+.um6ss-period-label {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 11.5px;
+  letter-spacing: 1px;
+  color: #ffffff !important;
+  text-transform: uppercase;
+}
+
+/* BANDE ROUGE SÉPARATRICE entre MATIN et APRES MIDI */
+.um6ss-tr-red-divider {
+  height: 14px;
+}
+
+.um6ss-td-red-divider {
+  background: #a80000 !important;
+  height: 14px;
+  padding: 0;
+}
+
+/* Cellules de cours */
+.um6ss-td-cell {
+  height: 128px;
+  min-height: 128px;
+  vertical-align: top;
+  padding: 0;
+  background: #ffffff;
+}
+
+.um6ss-cell-stack {
+  width: 100%;
+  height: 128px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+}
+
+.um6ss-empty-white {
+  background: #ffffff !important;
+}
+
+/* Boîte interne d'une séance (remplit 100% de la case avec fond pastel) */
+.um6ss-cell-inner-box {
+  width: 100%;
+  min-height: 128px;
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 3px;
+  color: #000000;
+}
+
+.cell-line-time {
+  font-weight: 800;
+  font-size: 11px;
+  color: #000000;
+}
+
+.cell-line-title {
+  font-weight: 800;
+  font-size: 12px;
+  color: #a80000 !important;
+  line-height: 1.25;
+}
+
+.cell-line-num {
+  font-weight: 700;
+  font-size: 11px;
+  color: #000000;
+}
+
+.cell-line-teacher {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #333333;
+}
+
+.cell-line-note {
+  font-size: 10px;
+  font-weight: 700;
+  color: #b45309;
+}
+
+.cell-line-room {
+  font-weight: 800;
+  font-size: 12px;
+  color: #a80000 !important;
+  margin-top: 2px;
+}
+
+.cell-line-filiere {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  justify-content: center;
+  margin-top: 2px;
+}
+
+.fil-tag {
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border: 1px solid #333333;
+  background: #ffffff;
+  color: #000000;
+}
+
+/* ==========================================================================
+   Impression A4 Paysage (Strictement identique à l'image du document)
+   ========================================================================== */
+
+@page {
+  size: A4 landscape;
+  margin: 6mm;
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+  }
+
+  .print-hidden,
+  .app-navbar,
+  .upload-panel-card,
+  .rooms-proposal-panel,
+  .global-actions-bar,
+  .app-footer {
+    display: none !important;
+  }
+
+  .app-main {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .um6ss-exact-paper-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    page-break-after: always;
+  }
+
+  .um6ss-doc-red-banner,
+  .um6ss-th-day,
+  .um6ss-th-date,
+  .um6ss-td-period-red,
+  .um6ss-td-red-divider {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background: #a80000 !important;
+    color: #ffffff !important;
+  }
+
+  .um6ss-cell-inner-box {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .um6ss-exact-grid,
+  .um6ss-exact-grid th, 
+  .um6ss-exact-grid td {
+    border: 1px solid #000000 !important;
+  }
+}
+
+.app-footer {
+  border-top: 1px solid #cbd5e1;
+  background: #ffffff;
+  padding: 12px 20px;
+  font-size: 11.5px;
+  color: #64748b;
+  text-align: center;
+  margin-top: auto;
+}
